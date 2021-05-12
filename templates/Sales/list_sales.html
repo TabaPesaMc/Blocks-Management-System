@@ -1,0 +1,257 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Home</title>
+
+      <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet">
+      <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.structure.min.css' %}" rel="stylesheet">
+      <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.theme.min.css' %}" rel="stylesheet">
+
+     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+     <script src="{% static 'js/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+      <script src="{% static 'js/myjs.js' %}"></script>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+
+      <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+          <style>
+        #loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #444444;
+            width: 70px;
+            height: 70px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .center {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
+    <!-- Custom styles for this template -->
+      <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+  <div id="loader" class="center"></div>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">MATOFALI MANAGEMENT SYSTEM</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse" align="center">
+    <ul class="navbar-nav mr-auto">
+        {% if request.user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+<!--        {% if url == list_item %}-->
+
+      <li class="nav-item">
+        <a class="nav-link" href=" ">List Of Sales</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/sales/add_sales/" >Add Sales</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/list_history">List Of Sales History</a>
+        </li>
+<!--        {% endif %}-->
+        {% endif %}
+    </ul>
+    <ul class="navbar-nav">
+        {% if request.user.is_authenticated %}
+        <li><a href="/accounts/logout/"><button class="btn btn-danger">{{ user }} | Logout </button> </a> </li>
+        {% else %}
+        <li><a href="/accounts/login/"><button class="btn btn-lg btn-primary">Login</button></a> </li>
+        {% endif %}
+
+    </ul>
+  </div>
+</nav>
+
+ <a href="#"><div id="version-display" data-toggle="modal" data-target="#myModal">MMIS Ver: 1.0</div></a>
+  <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+          <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                    <h4 class="modal-title">System Information</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="dev-info">
+                      <p class=""><b>MATOFALI MANAGEMENT INFORMATION SYSTEMS</b></p>
+                      <p>VERSION: 1.O</p><br>
+
+                      <p class="modal-header">DEVELOPER:</p>
+                      <p>Tabapesa & Nkwera</p>
+                      <p>0629550181 or 0714222496</p>
+                      <p><img src="/static/img/logo.png" alt="Developer Logo"></p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Funga</button>
+                </div>
+
+            </div>
+      </div>
+  </div>
+
+
+
+<main role="main" class="container">
+   {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="success" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="jumbotron">
+        <div class="header">{{header}}</div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">
+                <form method='POST' action=''>{% csrf_token %}
+                    {{form|crispy}}
+                    <input type="submit" class="btn btn-primary mybutton" value='Search'/>
+                </form>
+                <br><br>
+<!--                <a href="{% url 'add_sales' %}"><div class="btn btn-primary mybutton">Add Sales</div></a><br><br>-->
+<!--                <a href="/"><div class="btn btn-primary mybutton">Home</div></a><br>-->
+            </div>
+        <br>
+            <div class="col-sm-10">
+            <div class="display_table">
+                <table class='table' id="table">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+<!--                        <th>ID</th>-->
+                        <th>JINA LA MTEJA</th>
+                        <th>BIDHAA</th>
+                        <th>KIASI</th>
+                        <th>BEI</th>
+                        <th>JUMLA NDOGO</th>
+                        <th>IMELIPWA</th>
+                        <th>TAREE</th>
+                        {% if request.Username  == monipesa %}
+                        <th>FUTA</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    {% for instance in queryset %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+<!--                        <td>{{instance.id}}</td>-->
+                        <td>{{instance.name}}</td>
+                        <td>{{instance.line_one}}</td>
+                        <td>{{instance.line_one_quantity}}</td>
+                        <td>{{instance.line_one_unit_price}}</td>
+                        <td>{{instance.line_one_total_price}}</td>
+                        <td>{{instance.paid}}</td>
+                        <td>{{instance.timestamp}}</td>
+                        {% if request.Username  == monipesa %}
+                        <td><a href="{% url 'delete_sales_item' instance.id %}">Delete</a></td>
+                        {% endif %}
+<!--                        <td>{{instance.timestamp}}</td>-->
+                    </tr>
+                    {% endfor %}
+                </table>
+
+                <table class='table'>
+                    <th>
+
+                         <td style="font-weight: bold">Total Price</td>
+                         <td id="val" style="font-weight: bold"></td>
+
+                    </th>
+                </table>
+                <script>
+                      var table = document.getElementById("table"), sumVal=0;
+                      for (var i=1; i<table.rows.length; i++)
+                      {
+                          sumVal = sumVal + parseInt(table.rows[i].cells[5].innerHTML);
+
+                      }
+                         document.getElementById("val").innerHTML = "      TotalSum =" + sumVal;
+                </script>
+
+                <script>
+                      document.onreadystatechange = function() {
+                      if (document.readyState !== "complete") {
+                      document.querySelector(
+                      "body").style.visibility = "hidden";
+                      document.querySelector(
+                     "#loader").style.visibility = "visible";
+                      } else {
+                      document.querySelector(
+                      "#loader").style.display = "none";
+                      document.querySelector(
+                      "body").style.visibility = "visible";
+                      }
+                };
+                </script>
+
+            </div>
+            </div>
+        </div>
+  </div>
+</main>
+
+  </body>
+
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/pager/paging.js' %}"></script>
+  <script src="{% static 'js/nprogress/nprogress.js' %}"></script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script></body>
+
+</html>

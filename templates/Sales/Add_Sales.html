@@ -1,0 +1,163 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+      {{tittle}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Home</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+
+      <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+      <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet">
+      <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.structure.min.css' %}" rel="stylesheet">
+      <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.theme.min.css' %}" rel="stylesheet">
+
+
+      <script src="{% static 'js/myjs.js' %}"></script>
+      <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+      <script src="{% static 'js/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+
+
+    <!-- Bootstrap core CSS -->
+
+      <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+      <script>
+        var x = 0;
+        var y = 0;
+        var z = 0;
+        function calc(obj) {
+            var e = obj.id.toString();
+            if (e == 'tb1') {
+                x = Number(obj.value);
+                y = Number(document.getElementById('tb2').value);
+            } else {
+                x = Number(document.getElementById('tb1').value);
+                y = Number(obj.value);
+            }
+            z = x * y;
+            document.getElementById('total').value = z;
+            document.getElementById('update').innerHTML = z;
+        }
+    </script>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+          <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+<div id="loader" class="center"></div>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">MATOFALI MANAGEMENT SYSTEM</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+        {% if request.user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+<!--        {% if url == list_item %}-->
+
+      <li class="nav-item">
+        <a class="nav-link" href="sales/list_sales//">List Of Sales</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/sales/add_sales/" >Add Sales</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/list_history">List Of Sales History</a>
+        </li>
+<!--        {% endif %}-->
+        {% endif %}
+    </ul>
+    <ul class="navbar-nav">
+        {% if request.user.is_authenticated %}
+        <li><a href="/accounts/logout/"><button class="btn btn-danger">{{ user }} | Logout </button> </a> </li>
+        {% else %}
+        <li><a href="/accounts/login/"><button class="btn btn-lg btn-primary">Login</button></a> </li>
+        {% endif %}
+
+    </ul>
+  </div>
+</nav>
+
+ <a href="#"><div id="version-display" data-toggle="modal" data-target="#myModal">MMIS Ver: 1.0</div></a>
+  <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+          <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                    <h4 class="modal-title">System Information</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="dev-info">
+                      <p class=""><b>MATOFALI MANAGEMENT INFORMATION SYSTEMS</b></p>
+                      <p>VERSION: 1.O</p><br>
+
+                      <p class="modal-header">DEVELOPER:</p>
+                      <p>Tabapesa & Nkwera</p>
+                      <p>0629550181 or 0714222496</p>
+                      <p><img src="/static/img/logo.png" alt="Developer Logo"></p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Funga</button>
+                </div>
+
+            </div>
+      </div>
+  </div>
+
+
+
+<main role="main" class="container">
+  <div class="jumbotron">
+   <form method="POST" action="" name="addem" id="addem">
+       {% csrf_token %}
+<!--       <span id="update">0</span>-->
+		{{ form|crispy }}
+        <input type="submit" class="btn btn-primary " value='Save'/>
+    </form>
+    <br>
+    <br>
+
+  </div>
+
+</main>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script></body>
+</html>
